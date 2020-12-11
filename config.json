@@ -1,0 +1,145 @@
+{
+	"name": "Project Snyder Labs Covid19 Empatica",
+
+	"namespace": "Stanford\\ProjEmpatica",
+
+	"description": "Project specific EM for the Snyder Lab Covid Empatica project",
+
+	"documentation": "README.md",
+
+	"authors": [
+		{
+			"name": "Jae Lee",
+			"email": "jael@stanford.edu",
+			"institution": "Stanford University"
+		}
+	],
+
+	"permissions": [
+		"redcap_save_record"
+	],
+	
+	"enable-every-page-hooks-on-system-pages": false,	
+
+	"links": {
+		"project": [
+		],
+		"control-center": [
+		]
+	},
+
+	"no-auth-pages": [
+
+	],
+
+	"project-settings": [
+		{
+			"key": "enable-project-debug-logging",
+			"name": "<b>Enable Debug Logging</b><br><i>(optional)</i> Requires installation and configuration of emLogger",
+			"required": false,
+			"type": "checkbox"
+		},
+		{
+			"key": "portal-autocreate-desc",
+			"name": "<div class='alert alert-warning'>AUTO POPULATE RSP Participant Info Form<br>Upon save of the triggering instrument, the RSP Participant Info form is automatically populated and saved.</div>",
+			"required": false,
+			"type": "descriptive"
+		},
+		{
+			"key": "autocreate_rsp_participant_page",
+			"name": "<span class='text-lg badge badge-lg badge-danger'><b>Auto-create the participant info page</b></span><br>Check here to autocreate the rsp_participant_info page for the record",
+			"required": false,
+			"type": "checkbox"
+		},
+		{
+			"key": "portal-config-name",
+			"name": "<span class='text-lg badge badge-lg badge-primary'><b>Survey Portal EM Config Name</b></span><br>The Unique Config ID used for the  surveys in the Survey Portal EM (ex: daily)",
+			"required": false,
+			"type": "text",
+			"default": "daily"
+		},
+		{
+			"key": "config-field",
+			"name": "<span class='text-lg badge badge-lg badge-primary'><b>Config Field</b></span><br>This TEXT field that contains the Survey config id (i.e.daily, weekly, etc",
+			"required": false,
+			"type": "field-list"
+		},
+		{
+			"key": "participant-info-instrument",
+			"name": "<span class='text-lg badge badge-lg badge-primary'><b>Participant Information Instrument</b></span><br>The survey preference is in this form, update with newly selected option (default is both disabled).",
+			"required": false,
+			"type": "form-list"
+		},
+		{
+			"key": "default-start-date",
+			"name": "<span class='text-lg badge badge-lg badge-primary'><b>NOT USED FOR EMPATICA <br>Default date to enter for Survey Portal Start</b></span><br>Enter date to enter for all newly created records. Enter in the format 'Y-m-d'. Ex: '2020-03-15<br>Leave blank to enter 'today'",
+			"required": false,
+			"type": "text"
+		},
+		{
+			"key": "trigger-event-name",
+			"name": "<span class='text-lg badge badge-lg badge-danger'><b>Triggering Event Name</b></span><br>Name of event where triggering form is enabled.",
+			"required": false,
+			"type": "event-list"
+		},
+		{
+			"key": "triggering-instrument",
+			"name": "<span class='text-lg badge badge-lg badge-danger'>Triggering Instrument</span><br>The redcap form that triggers auto-creation.  This form contains the the field defining the triggering logic entered below",
+			"required": false,
+			"type": "form-list"
+		},
+		{
+			"key": "unsubscribe-instrument",
+			"name": "<span class='text-lg badge badge-lg badge-danger'>Unsubscribe Instrument</span><br>This form contains the the field selecting the unsubscribe option.",
+			"required": false,
+			"type": "form-list"
+		},
+		{
+			"key": "unsubscribe-field",
+			"name": "<span class='text-lg badge badge-lg badge-danger'>Unsubscribe Field</span><br>The field selecting the unsubscribe option.",
+			"required": false,
+			"type": "field-list"
+		},
+		{
+			"key": "withdraw-field",
+			"name": "<span class='text-lg badge badge-lg badge-danger'>Withdraw Field</span><br>The field selecting the withdraw option.",
+			"required": false,
+			"type": "field-list"
+		},
+		{
+			"key": "autocreate-rsp-participant-page-logic",
+			"name": "<span class='text-lg badge badge-lg badge-danger'>Logic to trigger auto-create</span><br>Enter logic to trigger rsp_participant_info creation. For example, an email has been entered: [email_address_v2]<>''",
+			"required": false,
+			"type": "text"
+		},
+		{
+			"key": "target-instrument",
+			"name": "<b>Save Target Instrument</b><br>If this field is specified, after the Participant Setup Instrument is populated, the fields will be saved to this instrument and the save record hook will be called.<br>If using the default RSP forms, this form should be RSP Participant Info Instrument",
+			"required": false,
+			"type": "form-list"
+		},
+		{
+			"key": "email-field",
+			"name": "<span class='text-lg badge badge-lg badge-danger'>Email Field</span><BR>Field where email is recorded for this participant (to be used for survey invtes/reminders) ",
+			"required": false,
+			"type": "field-list"
+		}
+	],
+
+
+	"system-settings": [
+		{
+			"key": "enable-system-debug-logging",
+			"name": "<b>Enable Debug Logging (system-wide)</b><i>(optional)</i> Requires installation and configuration of emLogger",
+			"required": false,
+			"type": "checkbox"
+		}
+	],
+
+	"compatibility": {
+		"php-version-min": "",
+		"php-version-max": "",
+		"redcap-version-min": "",
+		"redcap-version-max": ""
+	}
+}
