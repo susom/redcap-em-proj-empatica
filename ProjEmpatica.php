@@ -38,12 +38,14 @@ class ProjEmpatica extends \ExternalModules\AbstractExternalModule
             $this->autocreateRSPForm($project_id, $record, $instrument, $event_id);
         }
 
+        //TURNING THIS OFF FOR EMPATICA
+/**
         $survey_pref_form = $this->getProjectSetting('participant-info-instrument', $project_id);
         $config_event = $this->getProjectSetting('trigger-event-name', $project_id);
         if (($instrument == $survey_pref_form) && ($event_id == $config_event)) {
             $this->setEmailSmsPreference($project_id, $record, $event_id);
         }
-
+*/
         //set up for unsubscribe
         //if unsubscribe form is selected, make updates according to selection
         //1:  disable both email and text
