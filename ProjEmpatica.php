@@ -52,16 +52,60 @@ class ProjEmpatica extends \ExternalModules\AbstractExternalModule
         //2:  check withdrawn checkbox in the ADMIN form
         //3:  check withdrawn checkbox in the ADMIN form
         $unsubscribe_form = $this->getProjectSetting('unsubscribe-instrument', $project_id);
+        $config_event = $this->getProjectSetting('trigger-event-name', $project_id);
         if (($instrument == $unsubscribe_form) && ($event_id == $config_event)) {
             $this->setUnsubscribePreference($project_id, $record, $event_id);
+        }
+
+        //  If an admin checks the record_complete_record field, disable the portal, sms and email
+        //  They wanted a separate field to distinguish it from a withdrawn record
+        $admin_form = $this->getProjectSetting('admin-instrument', $project_id);
+        if (($instrument == $admin_form) && ($event_id == $config_event)) {
+
+            $this->shutdownCompleteRecord($project_id, $record, $event_id);
         }
 
     }
 
 
     /*******************************************************************************************************************/
-    /* AUTOCREATE AND AUTOSET METHODS                                                                                              */
+    /* AUTOCREATE AND AUTOSET METHODS                                                                                  */
     /***************************************************************************************************************** */
+
+    /**
+     * If an admin checks the record_complete_record field, disable the portal, sms and email
+     * They wanted a separate field to distinguish it from a withdrawn record
+     *
+     * @param $project_id
+     * @param $record
+     * @param $event_id
+     */
+    function shutdownCompleteRecord($project_id, $record, $event_id) {
+
+        $complete_field = $this->getProjectSetting('record-complete-field', $project_id);
+        $participant_form = $this->getProjectSetting('target-instrument', $project_id);
+
+        $complete_field_value = $this->getFieldValue($project_id, $record, $event_id, $complete_field);
+
+        //check if the complete field is checked  then shut down.
+        //also check if already disabled
+        if ($complete_field_value[1] == "1"){
+            $this->checkCheckbox($project_id, $participant_form, $record, $event_id, array('rsp_prt_disable_sms', 'rsp_prt_disable_email', 'rsp_prt_disable_portal'), true);
+
+
+            //log event
+            //add entry into redcap logging about saved form
+            REDCap::logEvent(
+                "Record complete request updated by Empatica EM",  //action
+                "Record complete checkbox has been checked. Survey Portal, SMS and email have been disabled.",  //change msg
+                NULL, //sql optional
+                $record, //record optional
+                $event_id, //event optional
+                $project_id //project ID optional
+            );
+        }
+    }
+
 
     function setUnsubscribePreference($project_id, $record, $event_id)
     {
@@ -99,7 +143,7 @@ class ProjEmpatica extends \ExternalModules\AbstractExternalModule
         //log event
         //add entry into redcap logging about saved form
         REDCap::logEvent(
-            "Unsubscribe request updated by Snyder Covid EM",  //action
+            "Unsubscribe request updated by Empatica EM",  //action
             $log_msg,  //change msg
             NULL, //sql optional
             $record, //record optional
@@ -202,10 +246,8 @@ class ProjEmpatica extends \ExternalModules\AbstractExternalModule
             }
         }
 
-        $config_field = $this->getProjectSetting('config-field',
-            $this->projectId); //name of the field that contains the config id in the participant form i.e. 'rsp_prt_config_id
-        $config_id = $this->getProjectSetting('portal-config-name',
-            $this->projectId); //name of the config entered in the portal ME config
+        $config_field = $this->getProjectSetting('config-field', $this->projectId); //name of the field that contains the config id in the participant form i.e. 'rsp_prt_config_id
+        $config_id = $this->getProjectSetting('portal-config-name', $this->projectId); //name of the config entered in the portal ME config
         $target_instrument = $this->getProjectSetting('target-instrument', $this->projectId);
 
 

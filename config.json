@@ -71,6 +71,18 @@
 			"type": "form-list"
 		},
 		{
+			"key": "admin-instrument",
+			"name": "<span class='text-lg badge badge-lg badge-primary'><b>Admin Instrument</b></span><br>When this admin form is saved, the EM will check to see if the record complete checkbox has been checked.",
+			"required": false,
+			"type": "form-list"
+		},
+		{
+			"key": "record-complete-field",
+			"name": "<span class='text-lg badge badge-lg badge-primary'><b>Record Complete Field</b></span><br>When this field is checked, the RSP portal will be disabled for this record (emails and sms also disabled).",
+			"required": false,
+			"type": "field-list"
+		},
+		{
 			"key": "default-start-date",
 			"name": "<span class='text-lg badge badge-lg badge-primary'><b>NOT USED FOR EMPATICA <br>Default date to enter for Survey Portal Start</b></span><br>Enter date to enter for all newly created records. Enter in the format 'Y-m-d'. Ex: '2020-03-15<br>Leave blank to enter 'today'",
 			"required": false,
